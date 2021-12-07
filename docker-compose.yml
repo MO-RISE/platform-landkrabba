@@ -1,0 +1,47 @@
+version: '3'
+services:
+
+  navico-radar:
+    image: opendlv-device-radar-navico:morise
+    restart: unless-stopped
+    network_mode: "host"
+    environment:
+      - DISPLAY=${DISPLAY}
+    command: "--cid=121 --ip=236.6.7.5 --port=6878 --antenna_height=7
+      --bearing_alignment=0 --gain=30 --interference_rejection=30
+      --local_interference_rejection=30 --noise_rejection=30 --transmit_lock=0
+      --rain_clutter=30 --range_alpha=1500 --range_bravo=1500 --scan_speed=3
+      --sea_clutter=30 --side_lobe_suppression=0 --target_boost=3
+      --target_expansion=3 --target_separation=3 --doppler=0"
+
+  ars300-radar:
+    image: ghcr.io/mo-rise/cluon-ARS300
+    restart: unless-stopped
+    network_mode: "host"
+    environment:
+      - CLUON_CID=121
+    devices:
+      - "/dev/ttyUSB0:/dev/ttyUSB0"
+
+  axis-camera-0:
+    image: chalmersrevere/opendlv-device-camera-mjpegoverhttp-multi:v0.0.3
+    restart: unless-stopped
+    network_mode: "host"
+    ipc: "host"
+    environment:
+      - DISPLAY=${DISPLAY}
+    volumes:
+      - /tmp:/tmp
+      - /opt/landkrabba/recordings:/recordings
+    working_dir: /recordings
+    command: "--cid=121 --url=http://192.168.0.123/myStream.mjpeg --width=640
+      --height=480 --recsuffix=_axis0"
+
+  recorder:
+    image: chrberger/cluon-record-multi:v0.0.1
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - /opt/landkrabba/recordings:/recordings
+    working_dir: /recordings
+    command: "--cid=121 --recsuffix=_radar"
