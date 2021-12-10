@@ -1,6 +1,7 @@
 version: '3'
 services:
 
+  ### Setup for a single NAVICO radar
   navico-radar:
     image: opendlv-device-radar-navico:morise
     restart: unless-stopped
@@ -14,6 +15,7 @@ services:
       --sea_clutter=30 --side_lobe_suppression=0 --target_boost=3
       --target_expansion=3 --target_separation=3 --doppler=0"
 
+  ### Setup for a single ARS-300 radar
   ars300-radar:
     image: ghcr.io/mo-rise/cluon-ARS300
     restart: unless-stopped
@@ -23,7 +25,20 @@ services:
     devices:
       - "/dev/ttyUSB0:/dev/ttyUSB0"
 
-  axis-camera-0:
+  ### Regular recorder for UDP packets
+  recorder:
+    image: chrberger/cluon-record-multi:v0.0.1
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - ./recordings:/recordings
+    working_dir: /recordings
+    command: "--cid=121 --recsuffix=_radar"
+
+  ### Cameras ###
+
+  ### Setup for a single camera using MJPEG
+  camera-mjpeg-0:
     image: chalmersrevere/opendlv-device-camera-mjpegoverhttp-multi:v0.0.3
     restart: unless-stopped
     network_mode: "host"
@@ -32,16 +47,31 @@ services:
       - DISPLAY=${DISPLAY}
     volumes:
       - /tmp:/tmp
-      - /opt/landkrabba/recordings:/recordings
+      - ./recordings:/recordings
     working_dir: /recordings
-    command: "--cid=121 --url=http://192.168.0.123/myStream.mjpeg --width=640
-      --height=480 --recsuffix=_axis0"
+    command: "--cid=121 --url=<url> --width=640 --height=480 --recsuffix=_axis0"
 
-  recorder:
-    image: chrberger/cluon-record-multi:v0.0.1
+  ### Setup for single camera using RTSP
+  camera-rtp-0:
+    image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.6
     restart: unless-stopped
-    network_mode: "host"
+    ipc: "host"
     volumes:
-      - /opt/landkrabba/recordings:/recordings
+      - /tmp:/tmp
+      - ./recordings:/recordings
     working_dir: /recordings
-    command: "--cid=121 --recsuffix=_radar"
+    command: "--url=rtsp://10.42.42.128/axis-media/media.amp?camera=1 --cid=111
+      --name=rtp0. --recsuffix=_h264_rtp0"
+
+  ### Recorder for single camera (through shared memory)
+  video-x264-recorder-amd64:
+    build:
+      context: https://github.com/chalmers-revere/opendlv-video-x264-recorder.git
+      dockerfile: Dockerfile.amd64
+    restart: unless-stopped
+    ipc: "host"
+    volumes:
+      - /tmp:/tmp
+      - ./recordings:/recordings
+    working_dir: /recordings
+    command: "--name=rtp.i420 --width=640 --height=480 --recsuffix=_h264_recorder0"
