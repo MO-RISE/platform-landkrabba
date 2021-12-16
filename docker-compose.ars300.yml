@@ -1,0 +1,21 @@
+version: '3'
+services:
+  ars300-radar:
+    image: cluon-ars300
+    restart: unless-stopped
+    network_mode: "host"
+    environment:
+      - CLUON_CID=121
+      - CANBUS_CHANNEL=can0
+      - CANBUS_TYPE=socketcan
+      - LOG_LEVEL=WARNING
+
+  ### Regular recorder for UDP packets
+  recorder:
+    image: chrberger/cluon-record-multi:v0.0.1
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
+    command: "--cid=121 --recsuffix=_radar"

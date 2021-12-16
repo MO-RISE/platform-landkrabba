@@ -9,6 +9,13 @@ Mounted according to:
 
 TODO
 
+## Network setup
+
+* netplan configuration
+* connection diagram
+
+
+## Software setup
 
 With software running according to the provided `docker-compose.yml` on the following hardware setup:
 - Sealog

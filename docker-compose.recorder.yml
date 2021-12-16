@@ -1,0 +1,12 @@
+version: '3'
+services:
+
+  ### Regular recorder for UDP packets
+  recorder:
+    image: chrberger/cluon-record-multi:v0.0.1
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
+    command: "--cid=121 --recsuffix=_landkrabba"
