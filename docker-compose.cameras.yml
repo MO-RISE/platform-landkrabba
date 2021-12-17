@@ -3,12 +3,46 @@ services:
 
   ### Cameras ###
 
-  ### Camera 1
-  camera-rtp-1:
+  axis-1:
     image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.6
     restart: unless-stopped
     ipc: "host"
     volumes:
       - /tmp:/tmp
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
     command: "--url=rtsp://192.168.1.100/axis-media/media.amp?camera=1 --cid=120
-      --name=rtp1. --remote" # --remote has the side effect of not recording anything locally unless a remote command is issued
+      --name=rtp1. --recsuffix=_axis1"
+
+  axis-2:
+    image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.6
+    restart: unless-stopped
+    ipc: "host"
+    volumes:
+      - /tmp:/tmp
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
+    command: "--url=rtsp://192.168.1.100/axis-media/media.amp?camera=2 --cid=120
+      --name=rtp2. --recsuffix=_axis2"
+
+  axis-3:
+    image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.6
+    restart: unless-stopped
+    ipc: "host"
+    volumes:
+      - /tmp:/tmp
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
+    command: "--url=rtsp://192.168.1.100/axis-media/media.amp?camera=3 --cid=120
+      --name=rtp3. --recsuffix=_axis3"
+
+  axis-4:
+    image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.6
+    restart: unless-stopped
+    ipc: "host"
+    volumes:
+      - /tmp:/tmp
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
+    command: "--url=rtsp://192.168.1.100/axis-media/media.amp?camera=4 --cid=120
+      --name=rtp4. --recsuffix=_axis4"

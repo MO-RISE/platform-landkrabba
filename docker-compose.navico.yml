@@ -14,3 +14,13 @@ services:
       --rain_clutter=30 --range_alpha=1500 --range_bravo=1500 --scan_speed=3
       --sea_clutter=30 --side_lobe_suppression=0 --target_boost=3
       --target_expansion=3 --target_separation=3 --doppler=0"
+
+  ### Recorder for NAVICO (CID=121)
+  navico-recorder:
+    image: chrberger/cluon-record-multi:v0.0.1
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
+    command: "--cid=121 --recsuffix=_navico"

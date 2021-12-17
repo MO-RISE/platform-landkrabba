@@ -11,3 +11,13 @@ services:
       - CANBUS_CHANNEL=can0
       - CANBUS_TYPE=socketcan
       - LOG_LEVEL=WARNING
+
+  ### Recorder for ARS-300 (CID=122)
+  ars300-recorder:
+    image: chrberger/cluon-record-multi:v0.0.1
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
+    command: "--cid=122 --recsuffix=_ars300"
