@@ -13,4 +13,4 @@ services:
       --local_interference_rejection=30 --noise_rejection=30 --transmit_lock=0
       --rain_clutter=30 --range_alpha=1500 --range_bravo=1500 --scan_speed=3
       --sea_clutter=30 --side_lobe_suppression=0 --target_boost=3
-      --target_expansion=3 --target_separation=3 --doppler=0 --verbose"
+      --target_expansion=3 --target_separation=3 --doppler=0"
