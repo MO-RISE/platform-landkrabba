@@ -1,7 +1,7 @@
 version: '3'
 services:
 
-  ### Setup for a single NAVICO radar
+  ### Setup for a single NAVICO radar (CID=121)
   navico-radar:
     image: opendlv-device-radar-navico:morise
     restart: unless-stopped

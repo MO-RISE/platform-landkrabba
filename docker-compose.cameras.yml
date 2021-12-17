@@ -3,41 +3,12 @@ services:
 
   ### Cameras ###
 
-  ### Setup for a single camera using MJPEG
-  camera-mjpeg-0:
-    image: chalmersrevere/opendlv-device-camera-mjpegoverhttp-multi:v0.0.3
+  ### Camera 1
+  camera-rtp-1:
+    image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.6
     restart: unless-stopped
-    network_mode: "host"
     ipc: "host"
-    environment:
-      - DISPLAY=${DISPLAY}
     volumes:
       - /tmp:/tmp
-      - /media/sealog/platform_landkrabba:/recordings
-    working_dir: /recordings
-    command: "--cid=121 --url=http://10.10.20.2/axis-cgi/mjpg/video.cgi?camera=1&resolution=1920x1080 --width=1920 --height=1080 --recsuffix=_axis0"
-
-  ### Setup for single camera using RTSP
-#  camera-rtp-1:
-#    image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.6
-#    restart: unless-stopped
-#    ipc: "host"
-#    volumes:
-#      - /tmp:/tmp
-#      - ./recordings:/recordings
-#    working_dir: /recordings
-#    command: "--url=rtsp://169.254.5.81/axis-media/media.amp?camera=1 --cid=121
-#      --name=rtp1. --recsuffix=_h264_rtp1"
-
-  ### Recorder for single camera (through shared memory)
-#  video-x264-recorder-amd64:
-#    build:
-#      context: https://github.com/chalmers-revere/opendlv-video-x264-recorder.git
-#      dockerfile: Dockerfile.amd64
-#    restart: unless-stopped
-#    ipc: "host"
-#    volumes:
-#      - /tmp:/tmp
-#      - ./recordings:/recordings
-#    working_dir: /recordings
-#    command: "--name=rtp1.i420 --width=1920 --height=1080 --recsuffix=_h264_recorder0"
+    command: "--url=rtsp://192.168.1.100/axis-media/media.amp?camera=1 --cid=120
+      --name=rtp1. --remote" # --remote has the side effect of not recording anything locally unless a remote command is issued

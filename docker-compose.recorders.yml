@@ -1,0 +1,35 @@
+version: '3'
+services:
+
+  ### Recorder for NAVICO (CID=121)
+  navico-recorder:
+    image: chrberger/cluon-record-multi:v0.0.1
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
+    command: "--cid=121 --recsuffix=_navico"
+
+  ### Recorder for ARS-300 (CID=122)
+  ars300-recorder:
+    image: chrberger/cluon-record-multi:v0.0.1
+    restart: unless-stopped
+    network_mode: "host"
+    volumes:
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
+    command: "--cid=122 --recsuffix=_ars300"
+
+  ### Camera recorders (trough shared memory)
+  x264-recorder-1:
+    build:
+      context: https://github.com/chalmers-revere/opendlv-video-x264-recorder.git
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ipc: "host"
+    volumes:
+      - /tmp:/tmp
+      - /media/sealog/platform_landkrabba:/recordings
+    working_dir: /recordings
+    command: "--name=rtp1.i420 --width=1920 --height=1080 --recsuffix=_h264_rtp1"

@@ -3,7 +3,7 @@
 A sensor platform consisting of:
 - A Navico radar
 - A ARS-300 radar
-- 2x Axis cameras
+- 4x Axis cameras
 
 Mounted according to:
 
