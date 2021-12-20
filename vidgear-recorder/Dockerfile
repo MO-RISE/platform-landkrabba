@@ -1,6 +1,6 @@
 FROM python:3.9-slim
 
-RUN apt update && apt install -y ffmpeg
+RUN apt-get update && apt-get install -y ffmpeg
 
 COPY requirements.txt requirements.txt
 
