@@ -41,6 +41,22 @@ Checks:
 
 By default, all data will be put in `/media/sealog/platform_landkrabba/`
 
+The data being logged are stored in odvd-format (radars) and mp4v-format (cameras). mp4v can be played directly by for example [VLC](https://www.videolan.org/). In order to read the *.rec-files with radar data and odvd-specification is needed.
+
+ODVD main spec: `https://github.com/MO-RISE/memo/tree/v0.3.1`
+Extra ODVD spec for Navico radar:
+```
+message opendlv.proxy.RadarDetectionReading [id = 1201] {
+  float azimuth [id = 1];
+  bytes data [id = 2]; // RawData
+  float range [id = 3];
+}
+```
+
+Can be used together with `cluon-rec2csv` to extract data in csv-format. `cluon-rec2csv` can (for example) be installed trough [pycluon](https://github.com/MO-RISE/pycluon), i.e. `pip install pycluon`
+
+
+
 ## Hardware setup
 
 ![image](https://user-images.githubusercontent.com/36690474/145045628-fd7898c7-4946-43c4-b808-15ec29450f91.png)
