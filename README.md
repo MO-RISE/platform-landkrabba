@@ -5,12 +5,15 @@ A sensor platform consisting of:
 - A ARS-300 radar
 - 4x Axis cameras
 
+
 ## Network setup
 
 Connected as:
-* Ethernet port 1 <-> Navico radar
-* Ethernet port 2 <-> Axis F44 hub
-* USB <-> Kvaser Leaf CAN bus
+* Ethernet port 1 <-> Navico radar (Not connected)
+* Ethernet port 2 <-> Axis F44 hub bottom unit (Connected)
+* Ethernet port 3 <-> Axis F44 hub top unit (Connected)
+* Ethernet port 6 <-> External eternet source (Connected)
+* USB <-> Kvaser Leaf CAN bus (Not connected)
 
 Configuration:
 
@@ -59,11 +62,24 @@ Can be used together with `cluon-rec2csv` to extract data in csv-format. `cluon-
 
 ## Hardware setup
 
+Current location: REVERE Labet 
+In use for REEDs project 
+
+Base architecture 
+- Power system 
+   - 12V 
+   - Battery 75ah 
+   - Battery charger (230V)
+   - Switchboard with Cylinder fuse 6x32mm (6 switches)
+- weatherproof box for electrical system and compute units 
+- Battery installed in weatherproof box
+- Charger installed in weatherproof box
+
 ![image](https://user-images.githubusercontent.com/36690474/145045628-fd7898c7-4946-43c4-b808-15ec29450f91.png)
 
 [Draw.io image source](https://risecloud-my.sharepoint.com/:u:/g/personal/ted_sjoblom_ri_se/EY4vCbqoZQ5EkSwt1cZGcOkBLVDilikyGcOJKVD8jE3cgA?e=7hvwcj) 
 
-
 ![image](photos/20211221_083533.jpg)
 ![image](photos/20211221_083604.jpg)
 ![image](photos/20211221_114753.jpg)
+![Untitled picture](https://user-images.githubusercontent.com/36690474/149301345-a61ca7d6-5868-4c8b-ada7-d0dabbe5560b.png)
