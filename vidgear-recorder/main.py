@@ -59,7 +59,9 @@ if __name__ == "__main__":
     sink_path.parent.mkdir(parents=True, exist_ok=True)
 
     # Define writer
-    default_config = {"-input_framerate": stream.framerate}
+    default_config = {
+        "-input_framerate" if SINK_COMPRESSION else "-fps": stream.framerate
+    }
     writer = WriteGear(
         output_filename=str(sink_path.absolute()),
         logging=VERBOSE,
