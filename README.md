@@ -2,18 +2,24 @@
 
 A sensor platform consisting of:
 - A Navico radar
-- A ARS-300 radar
+- An Ouster lidar
 - 4x Axis cameras
+- 2x RTL-SDR receivers connected to a VHF antenna
 
+The sensors are eventually interfaced to a [crowsnest](https://github.com/MO-RISE/crowsnest) data bus:
+- Navico radar -> OpenDLV/libcluon -> crowsnest
+- Ouster lidar -> OpenDLV/libcluon -> crowsnest
+- Axis cameras -> crowsnest
+- RTL-SDR receivers -> crowsnest
 
 ## Network setup
 
 Connected as:
-* Ethernet port 1 <-> Navico radar (Not connected)
-* Ethernet port 2 <-> Axis F44 hub bottom unit (Connected)
-* Ethernet port 3 <-> Axis F44 hub top unit (Connected)
-* Ethernet port 6 <-> External eternet source (Connected)
-* USB <-> Kvaser Leaf CAN bus (Not connected)
+* Ethernet port 1 <-> Navico radar
+* Ethernet port 2 <-> Ouster lidar
+* Ethernet port 3 <-> Axis F44 hub
+* Ethernet port 6 <-> 4G router
+* USB ports <-> RTL-SDRs
 
 Configuration:
 
