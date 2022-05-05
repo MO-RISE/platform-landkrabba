@@ -5,12 +5,14 @@ A sensor platform consisting of:
 - An Ouster lidar
 - 4x Axis cameras
 - 2x RTL-SDR receivers connected to a VHF antenna
+- 1x WindObserver 65
 
 The sensors are eventually interfaced to a [crowsnest](https://github.com/MO-RISE/crowsnest) data bus:
 - Navico radar -> OpenDLV/libcluon -> crowsnest
-- Ouster lidar -> OpenDLV/libcluon -> crowsnest
+- Ouster lidar -> crowsnest
 - Axis cameras -> crowsnest
 - RTL-SDR receivers -> crowsnest
+- WindObserver 65 -> crowsnest
 
 ## Network setup
 
@@ -18,26 +20,28 @@ Connected as:
 * Ethernet port 1 <-> Navico radar
 * Ethernet port 2 <-> Ouster lidar
 * Ethernet port 3 <-> Axis F44 hub
-* Ethernet port 6 <-> 4G router
+* Ethernet port 6 <-> 4G router (192.168.1.1)
 * USB ports <-> RTL-SDRs
+* USB ports <-> WindObserver 65
 
 Configuration:
 
 * `netplan` config in `netplan-platform-landkrabba.yaml`
     * Copy file to `/etc/netplan/`
     * Apply using `sudo netplan apply`
-* Enable multicast on loopback interface: `sudo ifconfig lo multicast`
-* Enable CAN network interface: `sudo ip link set can0 up type can bitrate 500000`
-* Axis F44 hub needs to be assigned the static IP `192.168.1.100`
+* Axis F44 hub assumed to be assigned the static IP `10.10.10.2`
 
 Checks:
 
 * `ethtool enp1s0` should show connected
 * `ethtool enp2s0` should show connected
-* `ping 192.168.1.100` should work
-* `ifconfig` should list a can0 interface in UP state
-* `ip route show` should show a 224.0.0.0/4 route to enp1s0 (all multicast traffic via enp1s0) 
+* `ethtool enp3s0` should show connected
+* `ping 10.10.10.2` should work
+* `ip route show` should show a 236.6.7.0/24 route to enp1s0
+* `ip route show` should show a 10.10.10.2 route to enp3s0
 
+
+# NOTE: Below is not up-to-date!
   
 ## Logging software setup
 
