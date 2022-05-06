@@ -1,3 +1,0 @@
-vidgear[core]
-opencv-python
-environs
