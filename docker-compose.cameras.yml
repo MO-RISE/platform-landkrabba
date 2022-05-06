@@ -15,22 +15,22 @@ services:
     image: ghcr.io/mo-rise/peek-a-boo:latest
     ports:
       - 8081:8000
-    command: [ "--play-from", "rtsp://localhost:8554/AXIS1" ]
+    command: [ "--play-from", "rtsp://rtsp-proxy:8554/AXIS1" ]
 
   peek-a-boo-2:
     image: ghcr.io/mo-rise/peek-a-boo:latest
     ports:
       - 8082:8000
-    command: [ "--play-from", "rtsp://localhost:8554/AXIS2" ]
+    command: [ "--play-from", "rtsp://rtsp-proxy:8554/AXIS2" ]
 
   peek-a-boo-3:
     image: ghcr.io/mo-rise/peek-a-boo:latest
     ports:
       - 8083:8000
-    command: [ "--play-from", "rtsp://localhost:8554/AXIS3" ]
+    command: [ "--play-from", "rtsp://rtsp-proxy:8554/AXIS3" ]
 
-  peek-a-boo-1:
+  peek-a-boo-4:
     image: ghcr.io/mo-rise/peek-a-boo:latest
     ports:
       - 8084:8000
-    command: [ "--play-from", "rtsp://localhost:8554/AXIS4" ]
+    command: [ "--play-from", "rtsp://rtsp-proxy:8554/AXIS4" ]
