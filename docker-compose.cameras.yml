@@ -1,48 +1,36 @@
 version: '3'
 services:
 
-  ### Cameras ###
-
-  axis-1:
-    build:
-      context: vidgear-recorder
-    volumes:
-      - /media/sealog/platform_landkrabba:/app/recordings
+  rtsp-proxy:
+    image: docker.io/aler9/rtsp-simple-server:latest
     environment:
-      - SOURCE=rtsp://192.168.1.100/axis-media/media.amp?camera=1
-      - SINK_SUFFIX=axis1.mp4
-      - SINK_COMPRESSION=False
-      - VERBOSE=True
+      - RTSP_PROTOCOLS=udp
+      - RTSP_PATHS_AXIS1_SOURCE=rtsp://10.10.10.2/axis-media/media.amp?camera=1
+      - RTSP_PATHS_AXIS2_SOURCE=rtsp://10.10.10.2/axis-media/media.amp?camera=2
+      - RTSP_PATHS_AXIS3_SOURCE=rtsp://10.10.10.2/axis-media/media.amp?camera=3
+      - RTSP_PATHS_AXIS4_SOURCE=rtsp://10.10.10.2/axis-media/media.amp?camera=4
+    network_mode: "host"
 
-  axis-2:
-    build:
-      context: vidgear-recorder
-    volumes:
-      - /media/sealog/platform_landkrabba:/app/recordings
-    environment:
-      - SOURCE=rtsp://192.168.1.100/axis-media/media.amp?camera=2
-      - SINK_SUFFIX=axis2.mp4
-      - SINK_COMPRESSION=False
-      - VERBOSE=True
+  peek-a-boo-1:
+    image: ghcr.io/mo-rise/peek-a-boo:latest
+    ports:
+      - 8081:8000
+    command: [ "--play-from", "rtsp://localhost:8554/AXIS1" ]
 
-  axis-3:
-    build:
-      context: vidgear-recorder
-    volumes:
-      - /media/sealog/platform_landkrabba:/app/recordings
-    environment:
-      - SOURCE=rtsp://192.168.1.100/axis-media/media.amp?camera=3
-      - SINK_SUFFIX=axis3.mp4
-      - SINK_COMPRESSION=False
-      - VERBOSE=True
+  peek-a-boo-2:
+    image: ghcr.io/mo-rise/peek-a-boo:latest
+    ports:
+      - 8082:8000
+    command: [ "--play-from", "rtsp://localhost:8554/AXIS2" ]
 
-  axis-4:
-    build:
-      context: vidgear-recorder
-    volumes:
-      - /media/sealog/platform_landkrabba:/app/recordings
-    environment:
-      - SOURCE=rtsp://192.168.1.100/axis-media/media.amp?camera=4
-      - SINK_SUFFIX=axis4.mp4
-      - SINK_COMPRESSION=False
-      - VERBOSE=True
+  peek-a-boo-3:
+    image: ghcr.io/mo-rise/peek-a-boo:latest
+    ports:
+      - 8083:8000
+    command: [ "--play-from", "rtsp://localhost:8554/AXIS3" ]
+
+  peek-a-boo-1:
+    image: ghcr.io/mo-rise/peek-a-boo:latest
+    ports:
+      - 8084:8000
+    command: [ "--play-from", "rtsp://localhost:8554/AXIS4" ]
