@@ -30,6 +30,7 @@ Configuration:
     * Copy file to `/etc/netplan/`
     * Apply using `sudo netplan apply`
 * Axis F44 hub assumed to be assigned the static IP `10.10.10.2`
+* Ouster Lidar assumed to be assigned the static IP `10.10.20.100` (Note: For setting a static IP, refer to [this](https://forum.ouster.at/d/63-how-i-can-assign-static-ip-to-os1))
 
 Checks:
 
@@ -39,6 +40,10 @@ Checks:
 * `ping 10.10.10.2` should work
 * `ip route show` should show a 236.6.7.0/24 route to enp1s0
 * `ip route show` should show a 10.10.10.2 route to enp3s0
+* `sudo arp-scan --interface=enp2s0 10.10.20.0/24` should output:
+  ```
+  10.10.20.100    <MAC address>       Ouster
+  ```
 
 
 # NOTE: Below is not up-to-date!
