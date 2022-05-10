@@ -44,6 +44,7 @@ Checks:
   ```
   10.10.20.100    <MAC address>       Ouster
   ```
+* `ping 10.10.20.100` should work
 
 
 # NOTE: Below is not up-to-date!
