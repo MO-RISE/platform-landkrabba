@@ -1,36 +1,30 @@
 version: '3'
 services:
 
-  rtsp-proxy:
-    image: docker.io/aler9/rtsp-simple-server:latest
-    environment:
-      - RTSP_PROTOCOLS=udp
-      - RTSP_PATHS_AXIS1_SOURCE=rtsp://10.10.10.2/axis-media/media.amp?camera=1
-      - RTSP_PATHS_AXIS2_SOURCE=rtsp://10.10.10.2/axis-media/media.amp?camera=2
-      - RTSP_PATHS_AXIS3_SOURCE=rtsp://10.10.10.2/axis-media/media.amp?camera=3
-      - RTSP_PATHS_AXIS4_SOURCE=rtsp://10.10.10.2/axis-media/media.amp?camera=4
-    network_mode: "host"
+  camera-1:
+    image: jrottenberg/ffmpeg:4-alpine
+    restart: unless-stopped
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    command: "-stimeout 1000000 -rtsp_transport tcp -r 12.5 -i rtsp://10.10.10.2/axis-media/media.amp?camera=1 -acodec copy -vcodec copy -stimeout 1000000 -f rtsp rtsp://host.docker.internal:8554/axis1"
 
-  peek-a-boo-1:
-    image: ghcr.io/mo-rise/peek-a-boo:latest
-    ports:
-      - 8081:8000
-    command: [ "--play-from", "rtsp://rtsp-proxy:8554/AXIS1" ]
+  camera-2:
+    image: jrottenberg/ffmpeg:4-alpine
+    restart: unless-stopped
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    command: "-stimeout 1000000 -rtsp_transport tcp -r 12.5 -i rtsp://10.10.10.2/axis-media/media.amp?camera=2 -acodec copy -vcodec copy -stimeout 1000000 -f rtsp rtsp://host.docker.internal:8554/axis2"
 
-  peek-a-boo-2:
-    image: ghcr.io/mo-rise/peek-a-boo:latest
-    ports:
-      - 8082:8000
-    command: [ "--play-from", "rtsp://rtsp-proxy:8554/AXIS2" ]
+  camera-3:
+    image: jrottenberg/ffmpeg:4-alpine
+    restart: unless-stopped
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    command: "-stimeout 1000000 -rtsp_transport tcp -r 12.5 -i rtsp://10.10.10.2/axis-media/media.amp?camera=3 -acodec copy -vcodec copy -stimeout 1000000 -f rtsp rtsp://host.docker.internal:8554/axis3"
 
-  peek-a-boo-3:
-    image: ghcr.io/mo-rise/peek-a-boo:latest
-    ports:
-      - 8083:8000
-    command: [ "--play-from", "rtsp://rtsp-proxy:8554/AXIS3" ]
-
-  peek-a-boo-4:
-    image: ghcr.io/mo-rise/peek-a-boo:latest
-    ports:
-      - 8084:8000
-    command: [ "--play-from", "rtsp://rtsp-proxy:8554/AXIS4" ]
+  camera-4:
+    image: jrottenberg/ffmpeg:4-alpine
+    restart: unless-stopped
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    command: "-stimeout 1000000 -rtsp_transport tcp -r 12.5 -i rtsp://10.10.10.2/axis-media/media.amp?camera=4 -acodec copy -vcodec copy -stimeout 1000000 -f rtsp rtsp://host.docker.internal:8554/axis4"

@@ -4,7 +4,7 @@ services:
   # $--MWV
   WindObserver-65:
     image: ghcr.io/mo-rise/crowsnest-toolbox:v0.4.2
-    restart: always
+    restart: unless-stopped
     network_mode: "host"
     devices:
       - "/dev/ttyUSB0"
