@@ -5,7 +5,7 @@ services:
   camera-logger-1:
     build:
       context: /home/sealog/repos/opendlv-device-camera-rtsp
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     restart: always
     network_mode: "host"
     volumes:
@@ -16,7 +16,7 @@ services:
   camera-logger-2:
     build:
       context: /home/sealog/repos/opendlv-device-camera-rtsp
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     restart: always
     network_mode: "host"
     volumes:
@@ -27,7 +27,7 @@ services:
   camera-logger-3:
     build:
       context: /home/sealog/repos/opendlv-device-camera-rtsp
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     restart: always
     network_mode: "host"
     volumes:
@@ -38,7 +38,7 @@ services:
   camera-logger-4:
     build:
       context: /home/sealog/repos/opendlv-device-camera-rtsp
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
     restart: always
     network_mode: "host"
     volumes:
@@ -61,5 +61,5 @@ services:
     environment:
       - LOGROTATE_CRON=0 * * * *
     volumes:
-      - /opt/sealog/recordings:/logs
+      - /opt/recordings:/logs
       - ./logrotate.conf:/etc/logrotate.conf

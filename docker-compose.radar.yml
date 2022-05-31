@@ -13,6 +13,10 @@ services:
     image: ghcr.io/mo-rise/crowsnest-processor-opendlv-radar:v0.1.2
     restart: always
     network_mode: "host"
+    deploy:
+      resources:
+        limits:
+          memory: 1024M
     environment:
       - CLUON_CID=112
       - MQTT_BROKER_HOST=localhost
