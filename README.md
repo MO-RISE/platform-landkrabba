@@ -46,56 +46,51 @@ Checks:
   ```
 * `ping 10.10.20.100` should work
 
-
-# NOTE: Below is not up-to-date!
   
-## Logging software setup
+## Live stream/logging software setup
 
-* Clone this repo
-* Run logging as:
-    * Only cameras: `docker-compose -f docker-compose.cameras.yml up -d`
-    * Only Navico: `docker-compose -f docker-compose.navico.yml up -d`
-    * Only ARS-300: `docker-compose -f docker-compose.ars300.yml up -d`
-    * All: `docker-compose -f docker-compose.cameras.yml -f docker-compose.navico.yml -f docker-compose.ars300.yml up -d`
+All of the below assumes a crowsnest setup is already up and running according to [the base setup](https://github.com/MO-RISE/crowsnest/blob/main/docker-compose.base.yml).
 
-By default, all data will be put in `/media/sealog/platform_landkrabba/`
+Clone this repo to (suggestion): `/opt/platform-landkrabba` and run as follows:
 
-The data being logged are stored in odvd-format (radars) and mp4v-format (cameras). mp4v can be played directly by for example [VLC](https://www.videolan.org/). In order to read the *.rec-files with radar data and odvd-specification is needed.
+Sensor interfaces:
+  * Only AIS receiver: `docker-compose -f docker-compose.ais.yml up -d`
+  * Only cameras: `docker-compose -f docker-compose.cameras.yml up -d`
+  * Only Lidar: `docker-compose -f docker-compose.lidar.yml up -d`
+  * Only Radar: `docker-compose -f docker-compose.radar.yml up -d`
+  * Only Wind sensor: `docker-compose -f docker-compose.nmea0183.yml up -d`
 
-ODVD main spec: `https://github.com/MO-RISE/memo/tree/v0.3.1`
-Extra ODVD spec for Navico radar:
+Bridges towards Maritimeweb:
+  * Only mqtt bridge: `docker-compose -f docker-compose.bridge.yml up -d`
+  * Only webrtc bridge: `docker-compose -f docker-compose.webrtc.yml up -d`
+
+
+To handle multiple services simultaneously, use the following syntax:
 ```
-message opendlv.proxy.RadarDetectionReading [id = 1201] {
-  float azimuth [id = 1];
-  bytes data [id = 2]; // RawData
-  float range [id = 3];
-}
+docker-compose -f docker-compose.<any>.yml -f docker-compose.<any>.yml -f docker-compose.<any>.yml up -d
 ```
 
-Can be used together with `cluon-rec2csv` to extract data in csv-format. `cluon-rec2csv` can (for example) be installed trough [pycluon](https://github.com/MO-RISE/pycluon), i.e. `pip install pycluon`
+Logging to disk (using opendlv):
+```
+docker-compose -f docker-compose.logging.yml up -d
+```
+The logs are rotated using logrotate according to the config found in [logrotate.conf](./logrotate.conf). By default, all data will be put in `/opt/recordings/`. This is **NOT** recommended since it may fill the OS disk. If you plan on continously log.
 
 
+## To run bandwidth trials
+The [`iftop`](https://linux.die.net/man/8/iftop) utility has been used to run some rudimentary bandwidth trials for the connected sensors, such as:
+```bash
+sudo iftop -i <interface> # Interactive output
 
-## Hardware setup
+or
 
-Current location: REVERE Labet 
-In use for REEDs project 
+sudo iftop -t -s 60 -i <interface>  # Running for 60 seconds and then outputting textual output only
+```
+**Note:** The above should be issued with the sensors running!
 
-Base architecture 
-- Power system 
-   - 12V 
-   - Battery 75ah 
-   - Battery charger (230V)
-   - Switchboard with Cylinder fuse 6x32mm (6 switches)
-- weatherproof box for electrical system and compute units 
-- Battery installed in weatherproof box
-- Charger installed in weatherproof box
+4G connection bandwidth has been trialed with [`speedtest-cli`](https://www.speedtest.net/apps/cli), such as:
+```bash
+speedtest-cli
+```
 
-![image](https://user-images.githubusercontent.com/36690474/145045628-fd7898c7-4946-43c4-b808-15ec29450f91.png)
 
-[Draw.io image source](https://risecloud-my.sharepoint.com/:u:/g/personal/ted_sjoblom_ri_se/EY4vCbqoZQ5EkSwt1cZGcOkBLVDilikyGcOJKVD8jE3cgA?e=7hvwcj) 
-
-![image](photos/20211221_083533.jpg)
-![image](photos/20211221_083604.jpg)
-![image](photos/20211221_114753.jpg)
-![Untitled picture](https://user-images.githubusercontent.com/36690474/149301345-a61ca7d6-5868-4c8b-ada7-d0dabbe5560b.png)

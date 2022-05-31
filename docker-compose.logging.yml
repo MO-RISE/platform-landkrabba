@@ -6,7 +6,7 @@ services:
     build:
       context: /home/sealog/repos/opendlv-device-camera-rtsp
       dockerfile: Dockerfile
-    restart: always
+    restart: unless-stopped
     network_mode: "host"
     volumes:
       - /opt/recordings:/recordings
@@ -17,7 +17,7 @@ services:
     build:
       context: /home/sealog/repos/opendlv-device-camera-rtsp
       dockerfile: Dockerfile
-    restart: always
+    restart: unless-stopped
     network_mode: "host"
     volumes:
       - /opt/recordings:/recordings
@@ -28,7 +28,7 @@ services:
     build:
       context: /home/sealog/repos/opendlv-device-camera-rtsp
       dockerfile: Dockerfile
-    restart: always
+    restart: unless-stopped
     network_mode: "host"
     volumes:
       - /opt/recordings:/recordings
@@ -39,7 +39,7 @@ services:
     build:
       context: /home/sealog/repos/opendlv-device-camera-rtsp
       dockerfile: Dockerfile
-    restart: always
+    restart: unless-stopped
     network_mode: "host"
     volumes:
       - /opt/recordings:/recordings
@@ -48,7 +48,7 @@ services:
 
   radar-recorder:
     image: chrberger/cluon-record:v0.0.3
-    restart: always
+    restart: unless-stopped
     network_mode: "host"
     volumes:
       - /opt/recordings:/recordings
@@ -57,7 +57,7 @@ services:
 
   logrotate:
     image: linkyard/logrotate:1.0.0
-    restart: always
+    restart: unless-stopped
     environment:
       - LOGROTATE_CRON=0 * * * *
     volumes:
