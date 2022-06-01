@@ -13,11 +13,10 @@ services:
       - OUSTER_ATTITUDE=0,0,0
       - POINTCLOUD_FREQUENCY=1
       - POINTCLOUD_SUBSET_SAMPLING=3
-
-  opendlv-device-lidar-os2:
-    build:
-      context: /home/sealog/repos/opendlv-device-lidar-os2-main
-      dockerfile: Dockerfile
-    restart: always
-    network_mode: "host"
-    command: "opendlv-device-lidar-os2 --lidar_port=7502 --imu_port=7503 --cid=113 --mode=live"
+  # opendlv-device-lidar-os2:
+  #   build:
+  #     context: /home/sealog/repos/opendlv-device-lidar-os2-main
+  #     dockerfile: Dockerfile
+  #   restart: unless-stopped
+  #   network_mode: "host"
+  #   command: "opendlv-device-lidar-os2 --lidar_port=7502 --imu_port=7503 --cid=113 --mode=live"
