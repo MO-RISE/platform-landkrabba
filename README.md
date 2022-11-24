@@ -18,7 +18,7 @@ Connected as:
 
 - Ethernet port 1 <-> Navico radar 25
 - Ethernet port 2 <-> Ouster lidar (OS2)
-- Ethernet port 3 <-> AXIS cam
+- Ethernet port 3 <-> AXIS camera (10.10.70.2)
 - Ethernet port 6 <-> 4G router (192.168.1.1)
 - USB ports <-> NA
 - USB ports <-> NA
