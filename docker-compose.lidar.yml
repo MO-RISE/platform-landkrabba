@@ -2,7 +2,7 @@ version: '3'
 services:
 
   ouster-lidar:
-    image: ghcr.io/mo-rise/crowsnest-connector-lidar-ouster:v0.1.1
+    image: ghcr.io/mo-rise/crowsnest-connector-lidar-ouster:v0.1.2
     restart: unless-stopped
     network_mode: "host"
     environment:
