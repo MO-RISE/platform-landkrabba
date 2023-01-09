@@ -147,3 +147,29 @@ sudo iftop -t -s 60 -i <interface>  # Running for 60 seconds and then outputting
 ```bash
 speedtest-cli
 ```
+
+## Radar settings
+
+- --cid: CID of the OD4Session to send and receive messages 
+- --ip: Initial reporting address of the Navico device (Typically 236.6.7.5)
+-  --port: Initial Navico Broadcast Port (Typically 6878)
+-  --antenna_height: Height of the sensor above the waterline (in millimetres)
+-  --bearing_alignment: Unit offset from the centreline of the vehicle (in milliradians). Negative == Left)
+-  --gain: Set unit Gain (in percentage. Empty is Auto)
+-  --interface_rejection: 
+-  --local_interface rejection:
+-  --noise_rejection:
+-  --transmit_lock: This  needs to be set to '0' to enable transmission
+-  --rain_clutter: (in percentage. Empty is Auto)
+-  --range_alpha: Set unit A Range (in metres. 50 to 72700)
+-  --range_bravo: Set unit B Range (in metres. 50 to 72700)
+-  --scan_speed. (1,2,3. 3 is fastest) The Halo20+ should have a huge range of scan speeds, but this is only what RadarPi uses. Scan speed 3 is 60rpm, and is only accurate to about 2.5km, according to the manual
+-  --sea_clutter: (in percentage. Empty is Auto)
+-  --side_lobe_suppression: CONSULT KRISTER ;) BEFORE CHANGING
+-  --target_boost: (1,2,3. 3 is highest)
+-  --target_expansion: (1,2,3. 3 is highest)
+-  --target_seperation: (1,2,3. 3 is highest))
+-  --doppler: (3 modes for target tracking. Consult ReadMe)
+-  --id: ID to use for sending radar spokes"
+-  --verbose: Enable more text output"
+-  --raw: Enables raw data stream to terminal.
