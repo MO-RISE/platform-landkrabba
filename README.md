@@ -2,9 +2,9 @@
 
 A sensor platform consisting of:
 
-- A Navico radar 24
-- An Ouster lidar (OS2)
-- 1x AXIS P1375-E
+- 1x Navico radar 24
+- 1x Ouster lidar (OS2)
+- 1x AXIS camera (P1375-E)
 
 The sensors are interfaced to a [crowsnest](https://github.com/MO-RISE/crowsnest) data bus:
 
