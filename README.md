@@ -6,7 +6,7 @@ A sensor platform consisting of:
 - An Ouster lidar (OS2)
 - 1x AXIS P1375-E
 
-The sensors are eventually interfaced to a [crowsnest](https://github.com/MO-RISE/crowsnest) data bus:
+The sensors are interfaced to a [crowsnest](https://github.com/MO-RISE/crowsnest) data bus:
 
 - Navico radar -> OpenDLV/libcluon -> crowsnest
 - Ouster lidar -> crowsnest
@@ -23,19 +23,12 @@ Connected as:
 - USB ports <-> NA
 - USB ports <-> NA
 
-Configuration:
 
-- `netplan` config in `netplan-platform-landkrabba.yaml`
-  - Copy file to `/etc/netplan/`
-  - Apply using `sudo netplan apply`
-- Axis F44 hub assumed to be assigned the static IP `10.10.10.2`
-- Ouster Lidar assumed to be assigned the static IP `10.10.20.100` (Note: For setting a static IP, refer to [this](https://forum.ouster.at/d/63-how-i-can-assign-static-ip-to-os1))
+**Checks:**
 
-Checks:
-
-- `ethtool enp1s0` should show connected
-- `ethtool enp2s0` should show connected
-- `ethtool enp3s0` should show connected
+- `ethtool enp1s0` should show --> Link detected: yes
+- `ethtool enp2s0` should show --> Link detected: yes
+- `ethtool enp3s0` should show --> Link detected: yes
 - `ping 10.10.10.2` should work
 - `ip route show` should show a 236.6.7.0/24 route to enp1s0
 - `ip route show` should show a 10.10.10.2 route to enp3s0
@@ -44,6 +37,15 @@ Checks:
   10.10.20.100    <MAC address>       Ouster
   ```
 - `ping 10.10.20.100` should work
+
+**Configuration:**
+
+- `netplan` config in `netplan-platform-landkrabba.yaml`
+  - Copy file to `/etc/netplan/`
+  - Apply using `sudo netplan apply`
+- Axis F44 hub assumed to be assigned the static IP `10.10.10.2`
+- Ouster Lidar assumed to be assigned the static IP `10.10.20.100` (Note: For setting a static IP, refer to [this](https://forum.ouster.at/d/63-how-i-can-assign-static-ip-to-os1))
+
 
 ### Configuring Ouster hardware
 
