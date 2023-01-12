@@ -15,4 +15,4 @@ services:
       - MQTT_USER=${MQTT_REMOTE_USERNAME}
       - MQTT_PASSWORD=${MQTT_REMOTE_PASSWORD}
       - MQTT_BASE_TOPIC=CROWSNEST/LANDKRABBA/WEBRTC
-      - MEDIA_SOURC st.docker.internal:8554/axis1
+      - MEDIA_SOURCE=rtsp://host.docker.internal:8554/axis1
