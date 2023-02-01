@@ -2,12 +2,10 @@ version: '3'
 services:
 
   navico-radar:
-    image: registry.opendlv.org/testing/opendlv-device-radar-navico:v0.0.5
+    image: registry.opendlv.org/testing/opendlv-device-radar-navico:v0.0.7
     restart: unless-stopped
     network_mode: "host"
-    environment:
-      - DISPLAY=${DISPLAY}
-    command: "--cid=112 --ip=236.6.7.5 --port=6878 --antenna_height=5000 --bearing_alignment=1047 --gain=10 --interference_rejection=20 --local_interference_rejection=20 --noise_rejection=1 --transmit_lock=0 --rain_clutter=0 --range_alpha=500 --range_bravo=500 --scan_speed=3 --sea_clutter=5 --side_lobe_suppression=0 --target_boost=0 --target_expansion=0 --target_separation=0 --doppler=0 --verbose"
+    command: "--cid=112 --ip=236.6.7.5 --port=6878 --antenna_height=5000 --bearing_alignment=1396 --gain=15 --rain_clutter=0 --interference_rejection=1 --local_interference_rejection=1 --noise_rejection=1 --transmit_lock=0 --range_alpha=1000 --range_bravo=1000 --scan_speed=3 --sea_clutter=40 --side_lobe_suppression=40 --target_boost=1 --target_expansion=1 --target_separation=1 --doppler=0 --verbose"
 
   crowsnest-processor-radar:
     image: ghcr.io/mo-rise/crowsnest-processor-opendlv-radar:v0.1.2
@@ -25,3 +23,4 @@ services:
       - RADAR_MIN_READING_WEIGHT=0
       - RADAR_SWEEP_ANGULAR_SUBSETTING=2
       - RADAR_SWEEP_RADIAL_SUBSETTING=2
+      
