@@ -4,6 +4,7 @@ services:
   camera-1:
     image: jrottenberg/ffmpeg:4-alpine
     restart: unless-stopped
+    network_mode: "host"
     extra_hosts:
       - host.docker.internal:host-gateway
     command: "-stimeout 1000000 -rtsp_transport tcp -r 12.5 -i rtsp://root:RISE2020@10.10.70.2/axis-media/media.amp -acodec copy -vcodec copy -stimeout 1000000 -f rtsp rtsp://host.docker.internal:8554/axis1"

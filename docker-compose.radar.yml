@@ -5,10 +5,10 @@ services:
     image: registry.opendlv.org/testing/opendlv-device-radar-navico:v0.0.7
     restart: unless-stopped
     network_mode: "host"
-    command: "--cid=112 --ip=236.6.7.5 --port=6878 --antenna_height=5000 --bearing_alignment=1396 --gain=15 --rain_clutter=0 --interference_rejection=1 --local_interference_rejection=1 --noise_rejection=1 --transmit_lock=0 --range_alpha=1000 --range_bravo=1000 --scan_speed=3 --sea_clutter=40 --side_lobe_suppression=40 --target_boost=1 --target_expansion=1 --target_separation=1 --doppler=0 --verbose"
+    command: "--cid=112 --ip=236.6.7.5 --port=6878 --antenna_height=5 --bearing_alignment=345 --gain=36 --rain_clutter=0 --interference_rejection=10 --local_interference_rejection=1 --noise_rejection=1 --transmit_lock=0 --range_alpha=1500 --range_bravo=1500 --scan_speed=3 --sea_clutter=10 --side_lobe_suppression=20 --target_boost=0 --target_expansion=0 --target_separation=0 --doppler=0 --verbose"
 
   crowsnest-processor-radar:
-    image: ghcr.io/mo-rise/crowsnest-processor-opendlv-radar:v0.1.2
+    image: ghcr.io/mo-rise/crowsnest-processor-opendlv-radar:v0.1.4
     restart: unless-stopped
     network_mode: "host"
     deploy:
@@ -21,6 +21,5 @@ services:
       - MQTT_BROKER_PORT=1883
       - MQTT_BASE_TOPIC=CROWSNEST/LANDKRABBA/RADAR/0/SWEEP
       - RADAR_MIN_READING_WEIGHT=0
-      - RADAR_SWEEP_ANGULAR_SUBSETTING=2
+      - RADAR_SWEEP_ANGULAR_SUBSETTING=5
       - RADAR_SWEEP_RADIAL_SUBSETTING=2
-      

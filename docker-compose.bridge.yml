@@ -6,7 +6,7 @@ services:
     restart: unless-stopped
     network_mode: "host"
     environment:
-      - MQTT_SOURCE_CLIENT_ID=platform-landkrabba-bridge-1
+      - MQTT_SOURCE_CLIENT_ID=platform-landkrabba-bridge-0
       - MQTT_SOURCE_HOST=localhost
       - MQTT_SOURCE_PORT=1883
       - MQTT_REMOTE_CLIENT_ID=platform-landkrabba-bridge-1

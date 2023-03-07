@@ -2,16 +2,16 @@ version: '3'
 
 services:
 
-#  camera-logger-1:
-#    build:
-#      context: /home/sealog/repos/opendlv-device-camera-rtsp
-#      dockerfile: dockerfile
-#    restart: always
-#    network_mode: "host"
-#    volumes:
-#      - /opt/recordings:/recordings
-#    working_dir: /recordings
-#    command: "--cid=111 --url=rtsp://localhost:8554/axis1 --transport=1 --rec=axis1.rec"
+  camera-logger-1:
+    build:
+      context: /home/sealog/repos/opendlv-device-camera-rtsp
+      dockerfile: dockerfile
+    restart: always
+    network_mode: "host"
+    volumes:
+      - /opt/recordings:/recordings
+    working_dir: /recordings
+    command: "--cid=111 --url=rtsp://localhost:8554/axis1 --transport=1 --rec=2023-03-02.rec"
 
 #  camera-logger-2:
 #    build:
@@ -46,14 +46,14 @@ services:
 #    working_dir: /recordings
 #    command: "--cid=111 --url=rtsp://localhost:8554/axis4 --transport=1 --rec=axis4.rec"
 
-  radar-recorder:
-    image: chrberger/cluon-record:v0.0.3
-    restart: always
-    network_mode: "host"
-    volumes:
-      - /opt/recordings:/recordings
-    working_dir: /recordings
-    command: "--cid=112 --rec=radar.rec --append"
+#  radar-recorder:
+#    image: chrberger/cluon-record:v0.0.3
+#    restart: always
+#    network_mode: "host"
+#    volumes:
+#      - /opt/recordings:/recordings
+#    working_dir: /recordings
+#    command: "--cid=112 --rec=radar.rec --append"
 
   logrotate:
     image: linkyard/logrotate:1.0.0
