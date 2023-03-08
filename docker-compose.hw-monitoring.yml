@@ -23,7 +23,7 @@ services:
 
   hw-monitoring:
     # build: .
-    image: ghcr.io/mo-rise/crowsnest-processor-hw-monitoring:0.0.1
+    image: ghcr.io/mo-rise/crowsnest-processor-hw-monitoring:latest
     container_name: hw-monitoring
     restart: unless-stopped
     network_mode: "host"
