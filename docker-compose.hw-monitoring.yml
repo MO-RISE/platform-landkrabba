@@ -23,7 +23,7 @@ services:
 
   hw-logger:
     # build: .
-    image: ghcr.io/mo-rise/crowsnest-processor-hw-logger:latets
+    image: ghcr.io/mo-rise/crowsnest-processor-hw-monitoring:latets
     container_name: hw-logger
     restart: unless-stopped
     network_mode: "host"
