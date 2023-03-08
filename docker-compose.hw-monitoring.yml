@@ -21,14 +21,14 @@ services:
       - /sys:/host/sys:ro
       - /etc/os-release:/host/etc/os-release:ro
 
-  hw-logger:
+  hw-monitoring:
     # build: .
     image: ghcr.io/mo-rise/crowsnest-processor-hw-monitoring:latets
-    container_name: hw-logger
+    container_name: hw-monitoring
     restart: unless-stopped
     network_mode: "host"
     environment:
-      - MQTT_CLIENT_ID=hw-logger
+      - MQTT_CLIENT_ID=hw-monitoring
       - MQTT_BROKER_HOST=localhost
       - MQTT_BROKER_PORT=1883
       # 0 singel device or device name
