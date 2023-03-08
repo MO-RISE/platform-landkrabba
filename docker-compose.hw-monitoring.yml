@@ -36,7 +36,6 @@ services:
       # LOG_LEVEL: DEBUG, INFO, WARNING, ERROR & CRITICAL
       - LOG_LEVEL=WARNING
 
-
 volumes:
   netdataconfig:
   netdatalib:
