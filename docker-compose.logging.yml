@@ -3,6 +3,7 @@ version: '3'
 services:
 
   camera-logger-1:
+    container_name: cw-logger-camera-1
     build:
       context: /home/sealog/repos/opendlv-device-camera-rtsp
       dockerfile: dockerfile
@@ -11,7 +12,7 @@ services:
     volumes:
       - /opt/recordings:/recordings
     working_dir: /recordings
-    command: "--cid=111 --url=rtsp://localhost:8554/axis1 --transport=1 --rec=2023-03-02.rec"
+    command: "--cid=111 --url=rtsp://localhost:8554/axis1 --transport=1 --rec=2023-04-11.rec"
 
 #  camera-logger-2:
 #    build:

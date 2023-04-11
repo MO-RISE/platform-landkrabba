@@ -3,6 +3,7 @@ services:
 
   camera-1:
     image: jrottenberg/ffmpeg:4-alpine
+    container_name: cw-camera-1
     restart: unless-stopped
     network_mode: "host"
     extra_hosts:
