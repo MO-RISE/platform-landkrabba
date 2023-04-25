@@ -41,7 +41,7 @@ services:
 
   crowsnest-processor-radar-2:
     image: ghcr.io/mo-rise/crowsnest-processor-opendlv-radar:0.1.17
-    container_name: cw-radar-processor-1
+    container_name: cw-radar-processor-2
     restart: unless-stopped
     network_mode: "host"
     deploy:
