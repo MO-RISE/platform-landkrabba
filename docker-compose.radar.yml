@@ -36,8 +36,8 @@ services:
       - MQTT_BROKER_PORT=1883
       - MQTT_BASE_TOPIC=CROWSNEST/LANDKRABBA/RADAR/0/SWEEP
       - RADAR_MIN_READING_WEIGHT=0
-      - RADAR_SWEEP_ANGULAR_SUBSETTING=4
-      - RADAR_SWEEP_RADIAL_SUBSETTING=4
+      - RADAR_SWEEP_ANGULAR_SUBSETTING=5
+      - RADAR_SWEEP_RADIAL_SUBSETTING=5
 
   crowsnest-processor-radar-2:
     image: ghcr.io/mo-rise/crowsnest-processor-opendlv-radar:0.1.17
@@ -55,8 +55,8 @@ services:
       - MQTT_BROKER_PORT=1883
       - MQTT_BASE_TOPIC=CROWSNEST/LANDKRABBA/RADAR/1/SWEEP
       - RADAR_MIN_READING_WEIGHT=0
-      - RADAR_SWEEP_ANGULAR_SUBSETTING=4
-      - RADAR_SWEEP_RADIAL_SUBSETTING=4
+      - RADAR_SWEEP_ANGULAR_SUBSETTING=5
+      - RADAR_SWEEP_RADIAL_SUBSETTING=5
 
   # navico-radar:
   #   image: registry.opendlv.org/testing/opendlv-device-radar-navico:v0.0.7
