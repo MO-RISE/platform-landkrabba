@@ -23,7 +23,6 @@ Connected as:
 - USB ports <-> NA
 - USB ports <-> NA
 
-
 **Checks:**
 
 - `ethtool enp1s0` should show --> Link detected: yes

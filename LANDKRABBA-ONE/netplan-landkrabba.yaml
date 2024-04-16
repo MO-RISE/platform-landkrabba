@@ -2,7 +2,7 @@ network:
     version: 2
     renderer: networkd
     ethernets:
-        # Cable internet
+        # Cable internet (RUTX12)
         enp1s0:
             dhcp4: yes
         enp2s0:
