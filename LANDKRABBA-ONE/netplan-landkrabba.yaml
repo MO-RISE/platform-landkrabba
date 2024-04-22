@@ -2,26 +2,35 @@ network:
     version: 2
     renderer: networkd
     ethernets:
-        # Cable internet (RUTX12)
+        # Cable internet or (RUTX12)
         enp1s0:
             dhcp4: yes
+
+        # NO-DEVICE
         enp2s0:
             addresses:
              - 10.10.20.1/24
             dhcp4: no
+
+        # NO-DEVICE
         enp3s0:
             addresses:
              - 10.10.30.1/24
             dhcp4: no
+
+        # Lidar OS2 (Seahorse IP address)
         enp4s0:
             addresses:
-             - 10.10.40.1/24
+             - 10.10.42.1/24
             dhcp4: no
+
+        # NO-DEVICE
         enp5s0:
             addresses:
              - 10.10.50.1/24
             dhcp4: no
-        # Radar       
+            
+        # Radar (24" HALO)
         enp6s0:
             addresses:
              - 10.10.60.1/24
