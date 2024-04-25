@@ -1,5 +1,70 @@
 # HOW TO GUIDE
 
+
+
+## New platform setup
+
+### Time syncing & (Local time or UTC?)
+
+#### NTP 
+
+**We using CHRONY**
+
+The NTP daemon chronyd calculates the drift and offset of your system clock and continuously adjusts it, so there are no large corrections that could lead to inconsistent logs, for instance. The cost is a little processing power and memory, but for a modern server this is usually negligible.
+
+Based on: <https://ubuntu.com/server/docs/network-ntp>
+
+1. Install chrony  ``sudo apt install chrony``
+2. Modify ``/etc/chrony/chrony.conf`` and add a line with a server from RISE, see here: <https://www.netnod.se/ntp/connect-to-ntp-servers>
+   1. Recommended:
+      1. Remove all pre-configured
+
+          ```txt
+          # See http://www.pool.ntp.org/join.html for more information.
+          pool 0.ubuntu.pool.ntp.org iburst maxsources 1
+          pool 1.ubuntu.pool.ntp.org iburst maxsources 1
+          pool 2.ubuntu.pool.ntp.org iburst maxsources 2
+          ```
+
+      2. Change to
+  
+          ```bash
+          pool ntp.se iburst maxsources 4
+          ```
+
+3. Restart chrony using ``sudo systemctl restart chrony.service``
+4. Check NTP
+   1. Check NTP status
+  
+    ```bach
+    chronyc sources
+
+    # MS Name/IP address  Stratum Poll Reach LastRx Last sample
+    # =======================================================
+    # ^* ntp.netnod.se     1   7  377   24  +33us[+48us] +/-1193us
+    # What is acceptable values?
+    ```
+
+   2. Quick check for non chrony install 
+
+   ```bash
+   timedatectl status
+
+    # Check that output is:
+    #     System clock synchronized: yes
+    #     NTP service: active
+
+   ```
+
+
+
+
+
+
+
+
+
+
 ## Netplan Configuration:
 
 - `netplan` config in `netplan-platform-landkrabba.yaml`
