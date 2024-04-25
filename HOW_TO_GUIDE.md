@@ -57,15 +57,7 @@ Based on: <https://ubuntu.com/server/docs/network-ntp>
    ```
 
 
-
-
-
-
-
-
-
-
-## Netplan Configuration:
+### Netplan Configuration:
 
 - `netplan` config in `netplan-platform-landkrabba.yaml`
   - Copy file to `/etc/netplan/`
@@ -74,6 +66,13 @@ Based on: <https://ubuntu.com/server/docs/network-ntp>
 - Ouster Lidar assumed to be assigned the static IP `10.10.20.100` (Note: For setting a static IP, refer to [this](https://forum.ouster.at/d/63-how-i-can-assign-static-ip-to-os1))
 
 
+### Configure RUTX12 Router 
+
+1) Set IP address 10.10.10.2
+2) Add static lease
+   1) Set Sealog mac to and ip 10.10.10.253  
+   2) Enable NMEA Server messages under GPS
+      1) 10.10.10.253 port 8888 UDP
 
 
 ### Configuring Ouster hardware
