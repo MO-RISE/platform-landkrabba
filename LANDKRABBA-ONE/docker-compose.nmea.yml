@@ -9,7 +9,7 @@ services:
     ]
  
   to_zenoh:
-    image: ghcr.io/mo-rise/porla-zenoh:v0.4.2
+    image: ghcr.io/rise-maritime/porla-zenoh:v0.4.2
     network_mode: host
     restart: unless-stopped
     command: [
