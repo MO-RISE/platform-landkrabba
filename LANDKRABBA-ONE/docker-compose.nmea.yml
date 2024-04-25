@@ -9,11 +9,10 @@ services:
     ]
  
   to_zenoh:
-    image: ghcr.io/mo-rise/porla-zenoh:v0.3.0
+    image: ghcr.io/mo-rise/porla-zenoh:v0.4.2
     network_mode: host
     restart: unless-stopped
     command: [
       "from_bus 1 | jsonify '{timestamp} {value}' | shuffle '{payload_pb2js}' 'rise/v0/landkrabba-one/pubsub/raw/nmea0183/rutx12 {payload_pb2js}' | zenoh put --line '{key} {value}' --encoder 'keelson-enclose-from-json'"
     ]
 
-    

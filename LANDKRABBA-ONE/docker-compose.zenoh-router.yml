@@ -1,0 +1,24 @@
+services:
+
+  zenoh-router:
+     image: eclipse/zenoh:0.10.1-rc
+     restart: always
+     network_mode: host
+     environment:
+       - RUST_LOG=debug
+     command: [
+        "--listen tcp/[::]:7447",
+        "--cfg=mode:'router'",
+        "--connect tls/zenoh.mo.ri.se:443",
+#        "--cfg=metadata: name:'boatswain',location:'porpoise'",
+        "--cfg=transport/link/tls/client_auth:true",
+        "--cfg=transport/link/tls/root_ca_certificate:'/root_ca_certificate.pem'",
+        "--cfg=transport/link/tls/client_private_key:'/client_private_key.pem'",
+        "--cfg=transport/link/tls/client_certificate:'/client_certificate.pem'",
+        "--cfg=plugins/storage_manager/storages/latest_local/volume:'memory'",
+        "--cfg=plugins/storage_manager/storages/latest_local/key_expr:'rise/v0/boatswain/pubsub/**'",
+              ]
+     volumes:
+       - ./minica.pem:/root_ca_certificate.pem
+       - ./key.pem:/client_private_key.pem
+       - ./cert.pem:/client_certificate.pem
