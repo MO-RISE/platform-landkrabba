@@ -22,6 +22,6 @@ Describing critical/recommended steps for a successful session
 [Go to checklist](./CheckList.md)
 
 
-## How to guide 
+## How to guide
 
 [Go to HOW TO GUIDE](./HOW_TO_GUIDE.mb)

@@ -15,7 +15,7 @@ The NTP daemon chronyd calculates the drift and offset of your system clock and 
 Based on: <https://ubuntu.com/server/docs/network-ntp>
 
 1. Install chrony  ``sudo apt install chrony``
-2. Modify ``/etc/chrony/chrony.conf`` and add a line with a server from RISE, see here: <https://www.netnod.se/ntp/connect-to-ntp-servers>
+2. Modify ``/etc/chrony/chrony.conf`` and add a line with a server from RISE, see here:  https://www.netnod.se/swedish-distributed-time-service
    1. Recommended:
       1. Remove all pre-configured
 
