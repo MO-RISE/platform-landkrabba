@@ -27,3 +27,6 @@ Describing critical/recommended steps for a successful session
 [Go to HOW TO GUIDE](./HOW_TO_GUIDE.mb)
 
 ## Hello world
+
+// ALL SHALL NOT PASS
+här kommer lite mer 
