@@ -29,4 +29,5 @@ Describing critical/recommended steps for a successful session
 ## Hello world
 
 // ALL SHALL NOT PASS
-här kommer lite mer 
+här kommer lite mer ännu en gång 
+nummer två 
