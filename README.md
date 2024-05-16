@@ -28,4 +28,4 @@ Describing critical/recommended steps for a successful session
 
 ## Hello world
 
-// ALL SHALL PASS
+// ALL SHALL NOT PASS
