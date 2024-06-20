@@ -1,0 +1,223 @@
+# Copyright (C) 2022 Krister Blanch
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+
+services:
+    cam_4:
+        container_name: cam_4
+        image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.3
+        cpuset: "1"
+        restart: unless-stopped
+        network_mode: "host"
+        volumes:
+        - $HOME/flash/recordings/${FOLDER}:/recordings
+        working_dir: /recordings
+        cap_add:
+        - SYS_NICE
+        entrypoint: ""
+        command: "nice -n -50 /usr/bin/opendlv-device-camera-rtp --url=rtsp://10.10.90.2/axis-media/media.amp\\?camera=1 --cid=112 --id=4 --client-port-udp-a=35040 --name=cam4 --recsuffix=-cam_4"
+        runtime: runc
+
+    cam_5:
+        container_name: cam_5
+        image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.3
+        cpuset: "2"
+        restart: unless-stopped
+        network_mode: "host"
+        volumes:
+        - $HOME/flash/recordings/${FOLDER}:/recordings
+        working_dir: /recordings
+        cap_add:
+        - SYS_NICE
+        entrypoint: ""
+        command: "nice -n -50 /usr/bin/opendlv-device-camera-rtp --url=rtsp://10.10.90.2/axis-media/media.amp\\?camera=2 --cid=112 --id=5 --client-port-udp-a=35050 --name=cam5 --recsuffix=-cam_5"
+        runtime: runc
+
+    cam_6:
+        container_name: cam_6
+        image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.3
+        cpuset: "3"
+        restart: unless-stopped
+        network_mode: "host"
+        volumes:
+        - $HOME/flash/recordings/${FOLDER}:/recordings
+        working_dir: /recordings
+        cap_add:
+        - SYS_NICE
+        entrypoint: ""
+        command: "nice -n -50 /usr/bin/opendlv-device-camera-rtp --url=rtsp://10.10.90.2/axis-media/media.amp\\?camera=3 --cid=112 --id=6 --client-port-udp-a=35060 --name=cam6 --recsuffix=-cam_6"
+        runtime: runc
+
+    cam_7:
+        container_name: cam_7
+        image: chalmersrevere/opendlv-device-camera-rtp-amd64:v0.0.3
+        cpuset: "4"
+        restart: unless-stopped
+        network_mode: "host"
+        volumes:
+        - $HOME/flash/recordings/${FOLDER}:/recordings
+        working_dir: /recordings
+        cap_add:
+        - SYS_NICE
+        entrypoint: ""
+        command: "nice -n -50 /usr/bin/opendlv-device-camera-rtp --url=rtsp://10.10.90.2/axis-media/media.amp\\?camera=4 --cid=112 --id=7 --client-port-udp-a=35070 --name=cam7 --recsuffix=-cam_7"
+        runtime: runc
+
+    # All Axis connectors wait for a recording message to start logging.
+    relay-recordercommand-110-112:
+        container_name: relay-recordercommand-110-112
+        image: chrberger/cluon-relay-multi:v0.0.4
+        cpuset: "5"
+        restart: unless-stopped
+        network_mode: "host"
+        cap_add:
+        - SYS_NICE
+        entrypoint: ""
+        command: "nice -n -7 /usr/bin/cluon-relay --cid-from=110 --cid-to=112 --keep=11"
+        runtime: runc
+
+    ###########################################################################
+    vehicle-view:
+        container_name: opendlv-vehicle-view
+        image: chalmersrevere/opendlv-vehicle-view-multi:v0.0.60
+        cpuset: "20"
+        restart: unless-stopped
+        network_mode: "host"
+        volumes:
+        - $HOME/flash/recordings/${FOLDER}:/opt/vehicle-view/recordings
+        - /var/run/docker.sock:/var/run/docker.sock
+        environment:
+        - OD4SESSION_CID=110
+        - PLAYBACK_OD4SESSION_CID=210
+        - OPENDLV_VEHICLE_VIEW_PLATFORM=Snowfox
+        cap_add:
+        - SYS_NICE
+        entrypoint: ""
+        command: "nice -n -1 node index.js"
+        runtime: runc
+
+    dev-lidar-os2-bow:
+        container_name: dev-lidar-os2-bow
+        image: chalmersrevere/opendlv-device-lidar-os2:v0.0.1
+        restart: unless-stopped
+        cpuset: "18"
+        network_mode: "host"
+        cap_add:
+        - SYS_NICE
+        entrypoint: ""
+        command: "nice -n -7 /usr/bin/opendlv-device-lidar-os2 --os2_ip=10.10.42.1 --lidar_port=7502 --imu_port=7503 --cid=162 --mode=live"
+        runtime: runc
+
+    record-lidar:
+        container_name: record-lidar-bow
+        image: chrberger/cluon-amd64:latest
+        cpuset: "19"
+        restart: unless-stopped
+        network_mode: "host"
+        volumes:
+        - $HOME/flash/recordings/${FOLDER}:/recordings
+        working_dir: /recordings
+        cap_add:
+        - SYS_NICE
+        command: sh -c "nice -n -7 cluon-OD4toStdout --cid=162 > `date +%Y-%m-%d_%H%M%S-lidar-os2-bow.rec`"
+        runtime: runc
+
+    dev-gps-nmea:
+        container_name: dev-gps-nmea
+        image: opendlv-device-gnss-nmea:v1.1.4
+        restart: unless-stopped
+        cpuset: "22"
+        network_mode: "host"
+        cap_add:
+        - SYS_NICE
+        entrypoint: ""
+        command: "nice -n -7 /usr/bin/opendlv-device-gnss-nmea --cid=186 --nmea_ip=239.192.0.3 --nmea_port=60003 --udp"
+        runtime: runc
+
+    record-gps:
+        container_name: record-gps
+        image: chrberger/cluon-amd64:latest
+        cpuset: "23"
+        restart: unless-stopped
+        network_mode: "host"
+        volumes:
+        - $HOME/flash/recordings/${FOLDER}:/recordings
+        working_dir: /recordings
+        cap_add:
+        - SYS_NICE
+        command: sh -c "nice -n -7 cluon-OD4toStdout --cid=186 > `date +%Y-%m-%d_%H%M%S-gnss.rec`"
+        runtime: runc
+
+    dev-radar-navico:
+        container_name: dev-radar-navico
+        image: registry.opendlv.org/testing/opendlv-device-radar-navico:v0.1.2
+        restart: unless-stopped
+        cpuset: "24"
+        network_mode: "host"
+        logging:
+            driver: "json-file"
+            options:
+                max-size: "100m"
+                max-file: "10"
+        cap_add:
+        - SYS_NICE
+        entrypoint: ""
+        command:
+          "nice -n -7 /usr/bin/opendlv-device-radar-navico --cid=175 --ip=236.6.7.5 --port=6878 
+          --antenna_height=3 --bearing_alignment=0 --id=1201 --id_bravo=1202 --gain=25 --gain_bravo=25 
+          --interference_rejection=1 --interference_rejection_bravo=1 --local_interference_rejection=1 
+          --local_interference_rejection_bravo=1 --noise_rejection=1 --noise_rejection_bravo=1 
+          --transmit_lock=0 --rain_clutter=0 --rain_clutter_bravo=0 --range=300 --range_bravo=2000 
+          --scan_speed=3 --scan_speed_bravo=3 --sea_clutter=0 --sea_clutter_bravo=0 --side_lobe_suppression=0 
+          --side_lobe_suppression_bravo=0 --target_boost=0 --target_boost_bravo=0 --sea_state=1 --sea_state_bravo=1 
+          --target_expansion=0 --target_expansion_bravo=0 --target_separation=0 --target_separation_bravo=0 
+          --doppler=0 --doppler_bravo=0"
+        runtime: runc
+
+    record-radar:
+        container_name: record-radar
+        image: chrberger/cluon-amd64:latest
+        cpuset: "25"
+        restart: unless-stopped
+        network_mode: "host"
+        volumes:
+        - $HOME/flash/recordings/${FOLDER}:/recordings
+        working_dir: /recordings
+        cap_add:
+        - SYS_NICE
+        command: sh -c "nice -n -7 cluon-OD4toStdout --cid=175 > `date +%Y-%m-%d_%H%M%S-radar.rec`"
+        runtime: runc
+
+    dev-imu-anello:
+        container_name: dev-imu-eth-anelloa1
+        image: opendlv-device-imu-eth-anelloa1:v0.1
+        privileged: true
+        restart: on-failure
+        network_mode: "host"
+        command: "--ip=10.10.80.1 --port=2033 --cid=213 --id=4 --z_id=5"
+
+
+    record-radar-anello:
+        container_name: record-imu-anello
+        image: chrberger/cluon-amd64:latest
+        restart: unless-stopped
+        network_mode: "host"
+        volumes:
+        - $HOME/flash/recordings/${FOLDER}:/recordings
+        working_dir: /recordings
+        cap_add:
+        - SYS_NICE
+        command: sh -c "nice -n -7 cluon-OD4toStdout --cid=213 > `date +%Y-%m-%d_%H%M%S-imu-anello.rec`"
+        runtime: runc

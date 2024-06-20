@@ -43,6 +43,8 @@ Based on: <https://ubuntu.com/server/docs/network-ntp>
     # =======================================================
     # ^* ntp.netnod.se     1   7  377   24  +33us[+48us] +/-1193us
     # What is acceptable values?
+
+    Sample under 10 000us +/-1193us
     ```
 
    2. Quick check for non chrony install 

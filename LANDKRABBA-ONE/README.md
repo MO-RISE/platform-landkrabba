@@ -10,6 +10,7 @@ Shore sensor platform
 - Port 4 <--> Lidar OS2 (Connected)
 - Port 5 <-->  
 - Port 4 <--> Radar 24" (Planed)
+
 - USB 0 <-->
 - USB 1 <-->
 
